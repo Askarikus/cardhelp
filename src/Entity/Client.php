@@ -24,7 +24,7 @@ class Client extends AbstractEntity
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
-    #[ORM\OneToMany(mappedBy: 'client_id', targetEntity: Card::class)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Card::class)]
     private Collection $cards;
 
     public function __construct()
@@ -92,7 +92,7 @@ class Client extends AbstractEntity
     {
         if (!$this->cards->contains($card)) {
             $this->cards->add($card);
-            $card->setClientId($this);
+            $card->setClient($this);
         }
 
         return $this;
@@ -102,8 +102,8 @@ class Client extends AbstractEntity
     {
         if ($this->cards->removeElement($card)) {
             // set the owning side to null (unless already changed)
-            if ($card->getClientId() === $this) {
-                $card->setClientId(null);
+            if ($card->getClient() === $this) {
+                $card->setClient(null);
             }
         }
 

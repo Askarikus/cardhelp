@@ -16,10 +16,10 @@ class Project extends AbstractEntity
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Client::class)]
     private Collection $clients;
 
-    #[ORM\OneToMany(mappedBy: 'project_id', targetEntity: CardSettings::class)]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: CardSettings::class)]
     private Collection $cardSettings;
 
-    #[ORM\OneToMany(mappedBy: 'project_id', targetEntity: Filial::class)]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Filial::class)]
     private Collection $filials;
 
     public function __construct()

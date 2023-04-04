@@ -16,7 +16,7 @@ class CardSettings extends AbstractEntity
     private ?string $name = null;
 
     #[ORM\Column(name:'type')]
-    private string $type = CardTypesEnum::DISCOUNT;
+    private string $type = 'DISCOUNT';
 
     #[ORM\Column(nullable: true)]
     private ?int $step = null;
@@ -26,9 +26,9 @@ class CardSettings extends AbstractEntity
 
     #[ORM\ManyToOne(inversedBy: 'cardSettings')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Project $project_id = null;
+    private ?Project $project = null;
 
-    #[ORM\OneToMany(mappedBy: 'settings_id', targetEntity: Card::class)]
+    #[ORM\OneToMany(mappedBy: 'settings', targetEntity: Card::class)]
     private Collection $cards;
 
     public function __construct()
@@ -83,14 +83,14 @@ class CardSettings extends AbstractEntity
         return $this;
     }
 
-    public function getProjectId(): ?Project
+    public function getProject(): ?Project
     {
-        return $this->project_id;
+        return $this->project;
     }
 
-    public function setProjectId(?Project $project_id): self
+    public function setProject(?Project $project): self
     {
-        $this->project_id = $project_id;
+        $this->project = $project;
 
         return $this;
     }
@@ -107,7 +107,7 @@ class CardSettings extends AbstractEntity
     {
         if (!$this->cards->contains($card)) {
             $this->cards->add($card);
-            $card->setSettingsId($this);
+            $card->setSettings($this);
         }
 
         return $this;
@@ -117,8 +117,8 @@ class CardSettings extends AbstractEntity
     {
         if ($this->cards->removeElement($card)) {
             // set the owning side to null (unless already changed)
-            if ($card->getSettingsId() === $this) {
-                $card->setSettingsId(null);
+            if ($card->getSettings() === $this) {
+                $card->setSettings(null);
             }
         }
 

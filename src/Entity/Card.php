@@ -12,16 +12,16 @@ class Card extends AbstractEntity
 {
     #[ORM\ManyToOne(inversedBy: 'cards')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Client $client_id = null;
+    private ?Client $client = null;
 
     #[ORM\ManyToOne(inversedBy: 'cards')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CardSettings $settings_id = null;
+    private ?CardSettings $settings = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $amount = null;
 
-    #[ORM\OneToMany(mappedBy: 'card_id', targetEntity: Transaction::class)]
+    #[ORM\OneToMany(mappedBy: 'card', targetEntity: Transaction::class)]
     private Collection $transactions;
 
     public function __construct()
@@ -30,26 +30,26 @@ class Card extends AbstractEntity
     }
 
 
-    public function getClientId(): ?Client
+    public function getClient(): ?Client
     {
-        return $this->client_id;
+        return $this->client;
     }
 
-    public function setClientId(?Client $client_id): self
+    public function setClient(?Client $client): self
     {
-        $this->client_id = $client_id;
+        $this->client = $client;
 
         return $this;
     }
 
-    public function getSettingsId(): ?CardSettings
+    public function getSettings(): ?CardSettings
     {
-        return $this->settings_id;
+        return $this->settings;
     }
 
-    public function setSettingsId(?CardSettings $settings_id): self
+    public function setSettings(?CardSettings $settings): self
     {
-        $this->settings_id = $settings_id;
+        $this->settings = $settings;
 
         return $this;
     }

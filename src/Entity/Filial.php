@@ -15,12 +15,12 @@ class Filial extends AbstractEntity
 
     #[ORM\ManyToOne(inversedBy: 'filials')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Project $project_id = null;
+    private ?Project $project = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'filial_id', targetEntity: Transaction::class)]
+    #[ORM\OneToMany(mappedBy: 'filial', targetEntity: Transaction::class)]
     private Collection $transactions;
 
     public function __construct()
@@ -42,12 +42,12 @@ class Filial extends AbstractEntity
 
     public function getProjectId(): ?Project
     {
-        return $this->project_id;
+        return $this->project;
     }
 
-    public function setProjectId(?Project $project_id): self
+    public function setProjectId(?Project $project): self
     {
-        $this->project_id = $project_id;
+        $this->project = $project;
 
         return $this;
     }

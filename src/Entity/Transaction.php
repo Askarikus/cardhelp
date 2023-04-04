@@ -13,11 +13,11 @@ class Transaction extends AbstractEntity
 
     #[ORM\ManyToOne(inversedBy: 'transactions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Card $card_id = null;
+    private ?Card $card = null;
 
     #[ORM\ManyToOne(inversedBy: 'transactions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Filial $filial_id = null;
+    private ?Filial $filial = null;
 
     public function getAmount(): ?int
     {
@@ -33,24 +33,24 @@ class Transaction extends AbstractEntity
 
     public function getCardId(): ?Card
     {
-        return $this->card_id;
+        return $this->card;
     }
 
-    public function setCardId(?Card $card_id): self
+    public function setCardId(?Card $card): self
     {
-        $this->card_id = $card_id;
+        $this->card = $card;
 
         return $this;
     }
 
     public function getFilialId(): ?Filial
     {
-        return $this->filial_id;
+        return $this->filial;
     }
 
-    public function setFilialId(?Filial $filial_id): self
+    public function setFilialId(?Filial $filial): self
     {
-        $this->filial_id = $filial_id;
+        $this->filial = $filial;
 
         return $this;
     }
