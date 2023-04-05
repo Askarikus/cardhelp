@@ -19,8 +19,21 @@ abstract class BaseFixtures extends Fixture
         $this->manager = $manager;
         $this->faker = Factory::create('ru_RU');
 
-        for ($i=0; $i<7 ; $i++) {
-            $this->loadData($manager);
+        $this->loadData($manager);
+
+        // for ($i=0; $i<7 ; $i++) {
+        //     $this->loadData($manager);
+        // }
+    }
+
+    protected function createMany(string $classname, int $count, array $args, callable $factory)
+    {
+        for ($i=0; $i<$count ; $i++) {
+            $entity = new $classname();
+            $factory($entity, $args);
+
+            $this->manager->persist($entity);
+            // $this->addReference($classname.'_'.$i, $entity);
         }
     }
 }

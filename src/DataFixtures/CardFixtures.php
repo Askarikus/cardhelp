@@ -11,21 +11,26 @@ class CardFixtures extends BaseFixtures
 {
     public function loadData(ObjectManager $manager): void
     {
-        $settingsRepo = $manager->getRepository(CardSettings::class);
-        $settingss = $settingsRepo->findAll();
-
         $clientRepo = $manager->getRepository(Client::class);
         $clients = $clientRepo->findAll();
 
-        $card = new Card();
-        $card->setClient($this->faker->randomElement($clients))
-            ->setSettings($this->faker->randomElement($settingss))
-            ->setAmount($this->faker->randomNumber(4, true));
+        $settingsRepo = $manager->getRepository(CardSettings::class);
+        $settingss = $settingsRepo->findAll();
 
-        $card->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
-        $card->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-50 days')));
+        $this->createMany(
+            Card::class,
+            15,
+            [$clients, $settingss],
+            function (Card $card, $arr) {
+                $card->setClient($this->faker->randomElement($arr[0]))
+                    ->setSettings($this->faker->randomElement($arr[1]))
+                    ->setAmount($this->faker->randomNumber(4, true));
 
-        $manager->persist($card);
+                $card->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
+                $card->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-50 days')));
+            }
+        );
+
         $manager->flush();
     }
 }

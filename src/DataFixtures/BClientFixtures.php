@@ -13,15 +13,20 @@ class BClientFixtures extends BaseFixtures
         $projectRepo = $manager->getRepository(Project::class);
         $projects = $projectRepo->findAll();
 
-        $client = new Client();
-        $client->setName($this->faker->name())
-            ->setProject($this->faker->randomElement($projects))
-            ->setPhone($this->faker->phoneNumber())
-            ->setBirthday(new \DateTimeImmutable($this->faker->date()));
-        $client->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
-        $client->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-50 days')));
+        $this->createMany(
+            Client::class,
+            12,
+            [$projects],
+            function (Client $client, $arr) {
+                $client->setName($this->faker->name())
+                    ->setProject($this->faker->randomElement($arr[0]))
+                    ->setPhone($this->faker->e164PhoneNumber())
+                    ->setBirthday(new \DateTimeImmutable($this->faker->date()));
+                $client->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
+                $client->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-50 days')));
+            }
+        );
 
-        $manager->persist($client);
         $manager->flush();
     }
 }
