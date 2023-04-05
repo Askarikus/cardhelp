@@ -24,7 +24,6 @@ class BCardSettingsFixtures extends BaseFixtures
         $settings->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
         $settings->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
 
-
         $manager->persist($settings);
         $manager->flush();
     }

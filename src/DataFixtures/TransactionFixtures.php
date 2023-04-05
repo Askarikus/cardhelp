@@ -17,7 +17,6 @@ class TransactionFixtures extends BaseFixtures
         $filialRepo = $manager->getRepository(Filial::class);
         $filials = $filialRepo->findAll();
 
-
         $trans = new Transaction();
         $trans->setFilial($this->faker->randomElement($filials))
             ->setCard($this->faker->randomElement($cards))
@@ -25,7 +24,6 @@ class TransactionFixtures extends BaseFixtures
 
         $trans->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
         $trans->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-50 days')));
-
 
         $manager->persist($trans);
         $manager->flush();
