@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\FilialsRepository;
+use App\Repository\FilialRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FilialsRepository::class)]
+#[ORM\Entity(repositoryClass: FilialRepository::class)]
 class Filial extends AbstractEntity
 {
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'filials')]
+    #[ORM\ManyToOne(inversedBy: 'filial')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
@@ -40,12 +40,12 @@ class Filial extends AbstractEntity
         return $this;
     }
 
-    public function getProjectId(): ?Project
+    public function getProject(): ?Project
     {
         return $this->project;
     }
 
-    public function setProjectId(?Project $project): self
+    public function setProject(?Project $project): self
     {
         $this->project = $project;
 
@@ -76,7 +76,7 @@ class Filial extends AbstractEntity
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions->add($transaction);
-            $transaction->setFilialId($this);
+            $transaction->setFilial($this);
         }
 
         return $this;
@@ -86,8 +86,8 @@ class Filial extends AbstractEntity
     {
         if ($this->transactions->removeElement($transaction)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getFilialId() === $this) {
-                $transaction->setFilialId(null);
+            if ($transaction->getFilial() === $this) {
+                $transaction->setFilial(null);
             }
         }
 

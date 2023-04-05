@@ -84,7 +84,7 @@ class Project extends AbstractEntity
     {
         if (!$this->cardSettings->contains($cardSetting)) {
             $this->cardSettings->add($cardSetting);
-            $cardSetting->setProjectId($this);
+            $cardSetting->setProject($this);
         }
 
         return $this;
@@ -94,8 +94,8 @@ class Project extends AbstractEntity
     {
         if ($this->cardSettings->removeElement($cardSetting)) {
             // set the owning side to null (unless already changed)
-            if ($cardSetting->getProjectId() === $this) {
-                $cardSetting->setProjectId(null);
+            if ($cardSetting->getProject() === $this) {
+                $cardSetting->setProject(null);
             }
         }
 
@@ -114,7 +114,7 @@ class Project extends AbstractEntity
     {
         if (!$this->filials->contains($filial)) {
             $this->filials->add($filial);
-            $filial->setProjectId($this);
+            $filial->setProject($this);
         }
 
         return $this;
@@ -124,8 +124,8 @@ class Project extends AbstractEntity
     {
         if ($this->filials->removeElement($filial)) {
             // set the owning side to null (unless already changed)
-            if ($filial->getProjectId() === $this) {
-                $filial->setProjectId(null);
+            if ($filial->getProject() === $this) {
+                $filial->setProject(null);
             }
         }
 

@@ -31,24 +31,24 @@ class Transaction extends AbstractEntity
         return $this;
     }
 
-    public function getCardId(): ?Card
+    public function getCard(): ?Card
     {
         return $this->card;
     }
 
-    public function setCardId(?Card $card): self
+    public function setCard(?Card $card): self
     {
         $this->card = $card;
 
         return $this;
     }
 
-    public function getFilialId(): ?Filial
+    public function getFilial(): ?Filial
     {
         return $this->filial;
     }
 
-    public function setFilialId(?Filial $filial): self
+    public function setFilial(?Filial $filial): self
     {
         $this->filial = $filial;
 

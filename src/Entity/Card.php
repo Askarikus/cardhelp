@@ -78,7 +78,7 @@ class Card extends AbstractEntity
     {
         if (!$this->transactions->contains($transaction)) {
             $this->transactions->add($transaction);
-            $transaction->setCardId($this);
+            $transaction->setCard($this);
         }
 
         return $this;
@@ -88,8 +88,8 @@ class Card extends AbstractEntity
     {
         if ($this->transactions->removeElement($transaction)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getCardId() === $this) {
-                $transaction->setCardId(null);
+            if ($transaction->getCard() === $this) {
+                $transaction->setCard(null);
             }
         }
 

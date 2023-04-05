@@ -54,9 +54,10 @@ class CardSettings extends AbstractEntity
         return CardTypesEnum::from($this->type);
     }
 
-    public function setType(CardTypesEnum $type): void
+    public function setType(CardTypesEnum $type): self
     {
         $this->type = $type->value;
+        return $this;
     }
 
     public function getStep(): ?int

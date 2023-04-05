@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Filials;
+use App\Entity\Filial;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Filials>
+ * @extends ServiceEntityRepository<Filial>
  *
- * @method Filials|null find($id, $lockMode = null, $lockVersion = null)
- * @method Filials|null findOneBy(array $criteria, array $orderBy = null)
- * @method Filials[]    findAll()
- * @method Filials[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Filial|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Filial|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Filial[]    findAll()
+ * @method Filial[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FilialsRepository extends ServiceEntityRepository
+class FilialRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Filials::class);
+        parent::__construct($registry, Filial::class);
     }
 
-    public function save(Filials $entity, bool $flush = false): void
+    public function save(Filial $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class FilialsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Filials $entity, bool $flush = false): void
+    public function remove(Filial $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class FilialsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Filials[] Returns an array of Filials objects
+//     * @return Filial[] Returns an array of Filial objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class FilialsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Filials
+//    public function findOneBySomeField($value): ?Filial
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')
