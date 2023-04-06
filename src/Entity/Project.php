@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource(formats: 'json')]
+// #[ApiResource(formats: 'json')]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project extends AbstractEntity
 {

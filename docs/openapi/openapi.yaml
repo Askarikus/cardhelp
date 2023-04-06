@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: 'Cardhelp Client Api'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost/'
+    description: 'Local server'
+paths:
+  /api/projects:
+    get:
+      tags:
+        - Projects
+      summary: 'Get user projects'
+      operationId: 1050ddecb6d9cf26e5c0678f687add1c
+      responses:
+        '200':
+          description: 'Get user projects'
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - { $ref: '#/components/schemas/ApiResponseList' }
+                  - { properties: { items: { type: array, items: { type: App\Controller\ProjectResponseDto } } } }
+components:
+  schemas:
+    SuccessResponse:
+      properties:
+        message:
+          type: string
+      type: object
+    ApiResponseList:
+      required:
+        - total_count
+        - count
+        - items
+      properties:
+        total_count:
+          type: number
+        count:
+          type: number
+      type: object
