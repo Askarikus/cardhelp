@@ -33,4 +33,9 @@ class CardFixtures extends BaseFixtures
 
         $manager->flush();
     }
+
+    public function getOrder(): int
+    {
+        return 4; // smaller means sooner
+    }
 }

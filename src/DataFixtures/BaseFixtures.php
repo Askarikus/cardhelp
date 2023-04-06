@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Faker\Factory;
 
-abstract class BaseFixtures extends Fixture
+abstract class BaseFixtures extends Fixture implements OrderedFixtureInterface
 {
     /**@var ObjectManager */
     protected $manager;

@@ -6,8 +6,9 @@ use App\Entity\CardSettings;
 use App\Entity\Project;
 use App\Enum\CardTypesEnum;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class BCardSettingsFixtures extends BaseFixtures
+class CardSettingsFixtures extends BaseFixtures implements OrderedFixtureInterface
 {
     public function loadData(ObjectManager $manager): void
     {
@@ -31,5 +32,10 @@ class BCardSettingsFixtures extends BaseFixtures
         );
 
         $manager->flush();
+    }
+
+    public function getOrder(): int
+    {
+        return 2; // smaller means sooner
     }
 }

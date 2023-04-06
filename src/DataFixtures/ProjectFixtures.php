@@ -4,8 +4,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Project;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class AProjectFixtures extends BaseFixtures
+class ProjectFixtures extends BaseFixtures implements OrderedFixtureInterface
 {
     public function loadData(ObjectManager $manager): void
     {
@@ -20,5 +21,10 @@ class AProjectFixtures extends BaseFixtures
             }
         );
         $this->manager->flush();
+    }
+
+    public function getOrder(): int
+    {
+        return 1; // smaller means sooner
     }
 }

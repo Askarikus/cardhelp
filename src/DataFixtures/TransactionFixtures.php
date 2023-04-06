@@ -33,4 +33,9 @@ class TransactionFixtures extends BaseFixtures
 
         $manager->flush();
     }
+
+    public function getOrder(): int
+    {
+        return 5; // smaller means sooner
+    }
 }

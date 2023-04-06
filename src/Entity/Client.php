@@ -20,12 +20,12 @@ class Client extends AbstractEntity
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $birthday = null;
 
-    #[ORM\ManyToOne(inversedBy: 'clients')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Project $project = null;
-
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Card::class)]
     private Collection $cards;
+
+    #[ORM\ManyToOne(inversedBy: 'clients')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?GroupClient $groupClient = null;
 
     public function __construct()
     {
@@ -68,18 +68,6 @@ class Client extends AbstractEntity
         return $this;
     }
 
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Card>
      */
@@ -106,6 +94,18 @@ class Client extends AbstractEntity
                 $card->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupClient(): ?GroupClient
+    {
+        return $this->groupClient;
+    }
+
+    public function setGroupClient(?GroupClient $groupClient): self
+    {
+        $this->groupClient = $groupClient;
 
         return $this;
     }

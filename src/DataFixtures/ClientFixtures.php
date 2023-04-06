@@ -3,23 +3,23 @@
 namespace App\DataFixtures;
 
 use App\Entity\Client;
-use App\Entity\Project;
+use App\Entity\GroupClient;
 use Doctrine\Persistence\ObjectManager;
 
-class BClientFixtures extends BaseFixtures
+class ClientFixtures extends BaseFixtures
 {
     public function loadData(ObjectManager $manager): void
     {
-        $projectRepo = $manager->getRepository(Project::class);
-        $projects = $projectRepo->findAll();
+        $groupClientRepo = $manager->getRepository(GroupClient::class);
+        $groupClient = $groupClientRepo->findAll();
 
         $this->createMany(
             Client::class,
             12,
-            [$projects],
+            [$groupClient],
             function (Client $client, $arr) {
                 $client->setName($this->faker->name())
-                    ->setProject($this->faker->randomElement($arr[0]))
+                    ->setGroupClient($this->faker->randomElement($arr[0]))
                     ->setPhone($this->faker->e164PhoneNumber())
                     ->setBirthday(new \DateTimeImmutable($this->faker->date()));
                 $client->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
@@ -28,5 +28,10 @@ class BClientFixtures extends BaseFixtures
         );
 
         $manager->flush();
+    }
+
+    public function getOrder(): int
+    {
+        return 3; // smaller means sooner
     }
 }

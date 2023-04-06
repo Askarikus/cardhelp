@@ -24,4 +24,9 @@ class FilialFixtures extends BaseFixtures
 
         $manager->flush();
     }
+
+    public function getOrder(): int
+    {
+        return 2; // smaller means sooner
+    }
 }

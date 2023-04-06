@@ -13,20 +13,20 @@ class Project extends AbstractEntity
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Client::class)]
-    private Collection $clients;
-
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: CardSettings::class)]
     private Collection $cardSettings;
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Filial::class)]
     private Collection $filials;
 
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: GroupClient::class)]
+    private Collection $groupClients;
+
     public function __construct()
     {
-        $this->clients = new ArrayCollection();
         $this->cardSettings = new ArrayCollection();
         $this->filials = new ArrayCollection();
+        $this->groupClients = new ArrayCollection();
     }
 
 
@@ -38,36 +38,6 @@ class Project extends AbstractEntity
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Client>
-     */
-    public function getClients(): Collection
-    {
-        return $this->clients;
-    }
-
-    public function addClient(Client $client): self
-    {
-        if (!$this->clients->contains($client)) {
-            $this->clients->add($client);
-            $client->setProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClient(Client $client): self
-    {
-        if ($this->clients->removeElement($client)) {
-            // set the owning side to null (unless already changed)
-            if ($client->getProject() === $this) {
-                $client->setProject(null);
-            }
-        }
 
         return $this;
     }
@@ -126,6 +96,36 @@ class Project extends AbstractEntity
             // set the owning side to null (unless already changed)
             if ($filial->getProject() === $this) {
                 $filial->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GroupClient>
+     */
+    public function getGroupClients(): Collection
+    {
+        return $this->groupClients;
+    }
+
+    public function addGroupClient(GroupClient $groupClient): self
+    {
+        if (!$this->groupClients->contains($groupClient)) {
+            $this->groupClients->add($groupClient);
+            $groupClient->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupClient(GroupClient $groupClient): self
+    {
+        if ($this->groupClients->removeElement($groupClient)) {
+            // set the owning side to null (unless already changed)
+            if ($groupClient->getProject() === $this) {
+                $groupClient->setProject(null);
             }
         }
 
