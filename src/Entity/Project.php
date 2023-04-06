@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource(formats: 'json')]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project extends AbstractEntity
 {
