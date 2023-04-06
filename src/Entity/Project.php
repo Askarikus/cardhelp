@@ -13,9 +13,6 @@ class Project extends AbstractEntity
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: CardSettings::class)]
-    private Collection $cardSettings;
-
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Filial::class)]
     private Collection $filials;
 
@@ -24,7 +21,6 @@ class Project extends AbstractEntity
 
     public function __construct()
     {
-        $this->cardSettings = new ArrayCollection();
         $this->filials = new ArrayCollection();
         $this->groupClients = new ArrayCollection();
     }
@@ -38,36 +34,6 @@ class Project extends AbstractEntity
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, CardSettings>
-     */
-    public function getCardSettings(): Collection
-    {
-        return $this->cardSettings;
-    }
-
-    public function addCardSetting(CardSettings $cardSetting): self
-    {
-        if (!$this->cardSettings->contains($cardSetting)) {
-            $this->cardSettings->add($cardSetting);
-            $cardSetting->setProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCardSetting(CardSettings $cardSetting): self
-    {
-        if ($this->cardSettings->removeElement($cardSetting)) {
-            // set the owning side to null (unless already changed)
-            if ($cardSetting->getProject() === $this) {
-                $cardSetting->setProject(null);
-            }
-        }
 
         return $this;
     }

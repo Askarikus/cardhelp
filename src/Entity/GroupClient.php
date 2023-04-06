@@ -20,9 +20,13 @@ class GroupClient extends AbstractEntity
     #[ORM\OneToMany(mappedBy: 'groupClient', targetEntity: Client::class)]
     private Collection $clients;
 
+    #[ORM\OneToMany(mappedBy: 'groupClient', targetEntity: CardSettings::class)]
+    private Collection $cardSettings;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        $this->cardSettings = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -73,6 +77,36 @@ class GroupClient extends AbstractEntity
             // set the owning side to null (unless already changed)
             if ($client->getGroupClient() === $this) {
                 $client->setGroupClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CardSettings>
+     */
+    public function getCardSettings(): Collection
+    {
+        return $this->cardSettings;
+    }
+
+    public function addCardSetting(CardSettings $cardSetting): self
+    {
+        if (!$this->cardSettings->contains($cardSetting)) {
+            $this->cardSettings->add($cardSetting);
+            $cardSetting->setGroupClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCardSetting(CardSettings $cardSetting): self
+    {
+        if ($this->cardSettings->removeElement($cardSetting)) {
+            // set the owning side to null (unless already changed)
+            if ($cardSetting->getGroupClient() === $this) {
+                $cardSetting->setGroupClient(null);
             }
         }
 

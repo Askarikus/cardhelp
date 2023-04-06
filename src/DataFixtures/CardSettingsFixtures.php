@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\CardSettings;
-use App\Entity\Project;
+use App\Entity\GroupClient;
 use App\Enum\CardTypesEnum;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -12,18 +12,19 @@ class CardSettingsFixtures extends BaseFixtures implements OrderedFixtureInterfa
 {
     public function loadData(ObjectManager $manager): void
     {
-        $projectRepo = $manager->getRepository(Project::class);
-        $projects = $projectRepo->findAll();
+        $groupClientRepo = $manager->getRepository(GroupClient::class);
+        $groupClient = $groupClientRepo->findAll();
+
 
         $this->createMany(
             CardSettings::class,
             5,
-            [$projects],
+            [$groupClient],
             function (CardSettings $settings, $arr) {
                 $settings->setName($this->faker->word())
                     ->setType(CardTypesEnum::from($this->faker->randomElement(CardTypesEnum::values())))
                     ->setStep($this->faker->numberBetween(5, 10))
-                    ->setProject($this->faker->randomElement($arr[0]))
+                    ->setGroupClient($this->faker->randomElement($arr[0]))
                     ->setDescription($this->faker->realText(rand(30, 80)));
 
                 $settings->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days')));
@@ -36,6 +37,6 @@ class CardSettingsFixtures extends BaseFixtures implements OrderedFixtureInterfa
 
     public function getOrder(): int
     {
-        return 2; // smaller means sooner
+        return 3; // smaller means sooner
     }
 }

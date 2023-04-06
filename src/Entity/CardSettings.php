@@ -7,7 +7,6 @@ use App\Enum\CardTypesEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Annotations\Annotation\Enum;
 
 #[ORM\Entity(repositoryClass: CardSettingsRepository::class)]
 class CardSettings extends AbstractEntity
@@ -24,12 +23,12 @@ class CardSettings extends AbstractEntity
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cardSettings')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Project $project = null;
-
     #[ORM\OneToMany(mappedBy: 'settings', targetEntity: Card::class)]
     private Collection $cards;
+
+    #[ORM\ManyToOne(inversedBy: 'cardSettings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?GroupClient $groupClient = null;
 
     public function __construct()
     {
@@ -84,18 +83,6 @@ class CardSettings extends AbstractEntity
         return $this;
     }
 
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Card>
      */
@@ -122,6 +109,18 @@ class CardSettings extends AbstractEntity
                 $card->setSettings(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGroupClient(): ?GroupClient
+    {
+        return $this->groupClient;
+    }
+
+    public function setGroupClient(?GroupClient $groupClient): self
+    {
+        $this->groupClient = $groupClient;
 
         return $this;
     }
