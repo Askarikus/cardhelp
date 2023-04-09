@@ -15,7 +15,7 @@ class ClientFixtures extends BaseFixtures
 
         $this->createMany(
             Client::class,
-            12,
+            120,
             [$groupClient],
             function (Client $client, $arr) {
                 $client->setName($this->faker->name())
