@@ -21,7 +21,7 @@ class SwaggerController extends AbstractController
     public function index(): Response
     {
         return $this->render('swagger/index.html.twig');
-        // return $this->render('some.html.twig');
+
     }
 
     #[Route('/swagger', name: 'client_swagger_api', priority: 1)]
